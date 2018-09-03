@@ -1,4 +1,4 @@
-# Redux-Persist for Expo Filesystem
+# [Redux-Persist for Expo Filesystem](https://www.npmjs.com/package/redux-persist-expo-filesystem)
 
 Persist redux store to filesystem because of the following android limitation [#199](https://github.com/rt2zz/redux-persist/issues/199)
 
