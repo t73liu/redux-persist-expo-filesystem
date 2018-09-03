@@ -10,7 +10,7 @@ function generateFilePath(key) {
 }
 
 function writeFile(path, value) {
-    FileSystem.writeAsStringAsync(generateFilePath(key), value);
+    FileSystem.writeAsStringAsync(path, value);
 }
 
 const ExpoFileSystemStorage = {
