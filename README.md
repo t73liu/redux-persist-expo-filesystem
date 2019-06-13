@@ -2,9 +2,14 @@
 
 Persist redux store to filesystem because of the following android limitation [#199](https://github.com/rt2zz/redux-persist/issues/199)
 
-Existing filesystem for redux-persist require ejecting of CRNA/Expo apps due to react-native linking.
+Existing filesystem for redux-persist require ejecting of Expo apps due to react-native linking.
 
 Comes with typescript definitions.
+
+## Compatibility
+
+- v2.0.0 imports from `expo-file-system` unimodule and is compatible with `expo` >= 33 or `expo-file-system` >= 5
+- v1.0.1 imports from `expo` and is compatible with `expo` 27 to 33 (inclusive)
 
 ## Setup
 
@@ -22,7 +27,3 @@ const store = createStore(
   persistReducer(persistConfig, rootReducer)
 );
 ```
-
-## Compatibility
-
-Confirmed with expo 29.0.0 and redux-persist 5.10.0
