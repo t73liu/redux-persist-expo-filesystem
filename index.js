@@ -9,8 +9,8 @@ function generateFilePath(key) {
     return generateFolderPath() + fileName;
 }
 
-function writeFile(path, value) {
-    FileSystem.writeAsStringAsync(path, value);
+async function writeFile(path, value) {
+    await FileSystem.writeAsStringAsync(path, value);
 }
 
 const ExpoFileSystemStorage = {
@@ -20,12 +20,12 @@ const ExpoFileSystemStorage = {
     setItem(key, value) {
         const folderPath = generateFolderPath();
         return FileSystem.getInfoAsync(folderPath)
-            .then(info => {
+            .then(async info => {
                 const filePath = generateFilePath(key);
                 if (info.exists) {
-                    writeFile(filePath, value);
+                    await writeFile(filePath, value);
                 } else {
-                    FileSystem.makeDirectoryAsync(folderPath, {intermediates: true})
+                    await FileSystem.makeDirectoryAsync(folderPath, {intermediates: true})
                         .then(() => writeFile(filePath, value));
                 }
             });
