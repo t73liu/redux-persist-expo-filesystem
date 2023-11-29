@@ -18,12 +18,10 @@ Comes with typescript definitions.
 1. Usage below:
 
 ```javascript
-import ExpoFileSystemStorage from "redux-persist-expo-filesystem"
+import ExpoFileSystemStorage from "redux-persist-expo-filesystem";
 const persistConfig = {
   key: "root",
-  storage: ExpoFileSystemStorage
+  storage: ExpoFileSystemStorage,
 };
-const store = createStore(
-  persistReducer(persistConfig, rootReducer)
-);
+const store = createStore(persistReducer(persistConfig, rootReducer));
 ```
