@@ -10,7 +10,7 @@ function generateFilePath(key) {
 }
 
 function writeFile(path, value) {
-  FileSystem.writeAsStringAsync(path, value);
+  return FileSystem.writeAsStringAsync(path, value);
 }
 
 const ExpoFileSystemStorage = {
@@ -22,11 +22,11 @@ const ExpoFileSystemStorage = {
     return FileSystem.getInfoAsync(folderPath).then((info) => {
       const filePath = generateFilePath(key);
       if (info.exists) {
-        writeFile(filePath, value);
+        return writeFile(filePath, value);
       } else {
-        FileSystem.makeDirectoryAsync(folderPath, { intermediates: true }).then(
-          () => writeFile(filePath, value),
-        );
+        return FileSystem.makeDirectoryAsync(folderPath, {
+          intermediates: true,
+        }).then(() => writeFile(filePath, value));
       }
     });
   },
