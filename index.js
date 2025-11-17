@@ -1,37 +1,44 @@
-import * as FileSystem from "expo-file-system";
+import { Directory, File, Paths } from "expo-file-system";
 
-function generateFolderPath() {
-  return FileSystem.documentDirectory + "appData/";
+function getAppDataDir() {
+  return Directory(Paths.document, "appData");
 }
 
-function generateFilePath(key) {
+function getFile(key) {
   const fileName = key.replace(/[^a-z0-9.\-_]/gi, "-");
-  return generateFolderPath() + fileName;
-}
-
-function writeFile(path, value) {
-  return FileSystem.writeAsStringAsync(path, value);
+  return File(getAppDataDir(), fileName);
 }
 
 const ExpoFileSystemStorage = {
   getItem(key) {
-    return FileSystem.readAsStringAsync(generateFilePath(key));
+    const file = getFile(key);
+    // TODO: Confirm that non-existent key behavior is the same as before.
+    return file.text();
   },
   setItem(key, value) {
-    const folderPath = generateFolderPath();
-    return FileSystem.getInfoAsync(folderPath).then((info) => {
-      const filePath = generateFilePath(key);
-      if (info.exists) {
-        return writeFile(filePath, value);
-      } else {
-        return FileSystem.makeDirectoryAsync(folderPath, {
-          intermediates: true,
-        }).then(() => writeFile(filePath, value));
-      }
-    });
+    const appDataDir = getAppDataDir();
+    if (!appDataDir.exists) {
+      appDataDir.create({
+        intermediates: true,
+      });
+    }
+    const file = getFile(key);
+    if (!file.exists) {
+      file.create();
+    }
+    // TODO: Confirm that File.write has no performance difference compared to
+    // FileSystem.writeAsStringAsync.
+    file.write(value);
+    // Returns an empty promise to maintain existing API.
+    return Promise.resolve();
   },
   removeItem(key) {
-    return FileSystem.deleteAsync(generateFilePath(key), { idempotent: true });
+    const file = getFile(key);
+    if (file.exists) {
+      file.delete();
+    }
+    // Returns an empty promise to maintain existing API.
+    return Promise.resolve();
   },
 };
 
