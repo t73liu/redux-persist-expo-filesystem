@@ -1,6 +1,6 @@
 {
   "name": "redux-persist-expo-filesystem",
-  "version": "3.0.0-rc1",
+  "version": "3.0.0-rc2",
   "private": false,
   "description": "Redux-Persist storage engine using Expo filesystem that removes the need to eject Expo/CRNA app",
   "author": "https://github.com/t73liu",

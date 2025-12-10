@@ -1,18 +1,21 @@
 import { Directory, File, Paths } from "expo-file-system";
 
 function getAppDataDir() {
-  return Directory(Paths.document, "appData");
+  return new Directory(Paths.document, "appData");
 }
 
 function getFile(key) {
   const fileName = key.replace(/[^a-z0-9.\-_]/gi, "-");
-  return File(getAppDataDir(), fileName);
+  return new File(getAppDataDir(), fileName);
 }
 
 const ExpoFileSystemStorage = {
   getItem(key) {
     const file = getFile(key);
     // TODO: Confirm that non-existent key behavior is the same as before.
+    if (!file.exists) {
+      return Promise.resolve(null);
+    }
     return file.text();
   },
   setItem(key, value) {
