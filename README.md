@@ -10,9 +10,9 @@ Comes with typescript definitions.
 
 ## Compatibility
 
-- v3.0.0 uses the updated `expo-file-system` and is compatible with `expo` 45+.
+- v3.0.0 uses the updated `expo-file-system` and is compatible with `expo` 54+.
 - v2.0.2 imports from `expo-file-system` unimodule and is compatible with `expo`
-  34 to 44 (inclusive).
+  34 to 53 (inclusive).
 - v1.0.1 imports from `expo` and is compatible with `expo` 27 to 33 (inclusive).
 
 ## Setup
